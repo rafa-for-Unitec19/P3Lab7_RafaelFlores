@@ -1,12 +1,19 @@
 #ifndef RACIONAL_H
 #define RACIONAL_H
-#include <iostream>
+#include <sstream>
 class Racional{
     int den, num;
     public:
-    Racional(int, int){};
+    Racional(){};
+    Racional(int d, int n): den(d), num(n){};
+    ~Racional(){};
     int getDen() const {return den;};
     int getNum() const {return num;};
+    /*std::string const toString(){
+            std::stringstream stre;
+            stre << num << " / " << den;
+            return stre.str();
+    }*/
     friend std::ostream& operator<<(std::ostream &strm, const Racional &a) {
         return strm << a.getDen() << "/" << a.getNum();
     };
