@@ -155,14 +155,14 @@ void impresionComplejo(int p, int s, bool t){
         cout << " + "; 
         complejos[s].toStrings(); 
         cout << " = "; 
-        complejos[racionales.size()-1].toStrings();
+        complejos[complejos.size()-1].toStrings();
         cout << "\n";
     }else{
         complejos[p].toStrings();
         cout << " * "; 
         complejos[s].toStrings(); 
         cout << " = ";
-        complejos[racionales.size()-1].toStrings();
+        complejos[complejos.size()-1].toStrings();
         cout << "\n";
     }
 }
@@ -179,7 +179,7 @@ void selector()
             {
                 agregarVectorRacional();
             }
-            else
+            else if (menuTipos() == 2)
             {
                 agregarVectorComplejo();
             }
@@ -193,7 +193,7 @@ void selector()
                     cout << "No hay sufiecientes vectores para mostrar" << endl;
                 }
             }
-            else
+            else if (menuTipos() == 2)
             {
                 if(!complejos.empty()){
                     listarComplejos();
@@ -217,7 +217,7 @@ void selector()
                         Vector<Racional> temp = racionales[primer] + racionales[segundo];
                         racionales.push_back(temp);
                         impresionRacional(primer, segundo, true);
-                    }else{
+                    }else if (menuOperaciones() == 2){
                         Vector<Racional> temp = racionales[primer] * racionales[segundo];
                         racionales.push_back(temp);
                         impresionRacional(primer, segundo, false);
@@ -226,7 +226,7 @@ void selector()
                     cout << "No hay sufiecientes vectores para operar" << endl;
                 }
             }
-            else
+            else if (menuTipos() == 2)
             {
                 if(complejos.size() > 0){
                     cout << "Seleccione los Complejos a operar:" << endl;
@@ -239,7 +239,7 @@ void selector()
                         Vector<Complejo> temp = complejos[primer] + complejos[segundo];
                         complejos.push_back(temp);
                         impresionComplejo(primer, segundo, true);
-                    }else{
+                    }else if (menuOperaciones() == 2){
                         Vector<Complejo> temp = complejos[primer] * complejos[segundo];
                         complejos.push_back(temp);
                         impresionComplejo(primer, segundo, false);
