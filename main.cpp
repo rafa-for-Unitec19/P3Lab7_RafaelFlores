@@ -39,6 +39,24 @@ int menuTipos()
     return op;
 }
 
+int menuOperaciones()
+{
+    int op;
+    cout << "Ingrese la opcion que mas desee:"
+         << "\n\t1. Suma"
+         << "\n\t2. Multiplicacion\n";
+    cin >> op;
+    if (op < 3 && op > 0)
+    {
+        return op;
+    }
+    else
+    {
+        cout << "Debe ingresar la opcion correcta" << endl;
+    }
+    return op;
+}
+
 Racional agregarRacional()
 {
     cout << "Ingrese el Numerador" << endl;
@@ -47,6 +65,10 @@ Racional agregarRacional()
     cout << "Ingrese el denominador" << endl;
     int den;
     cin >> den;
+    if (!den){
+        cout << "No puede haber un denominador en 0, cambiando a 1" << endl;;
+        den = 1;
+    }
     Racional temp(num, den);
     return temp;
 }
@@ -66,8 +88,11 @@ Complejo agregarComplejo()
 void agregarVectorComplejo()
 {
     Vector<Complejo> temp;
+    cout << "Ingrese la componente de la cordenada X" << endl;
     temp.setCordX(agregarComplejo());
+    cout << "Ingrese la componente de la cordenada Y" << endl;
     temp.setCordY(agregarComplejo());
+    cout << "Ingrese la componente de la cordenada Z" << endl;
     temp.setCordZ(agregarComplejo());
     complejos.push_back(temp);
 }
@@ -75,8 +100,11 @@ void agregarVectorComplejo()
 void agregarVectorRacional()
 {
     Vector<Racional> temp;
+    cout << "Ingrese la componente de la cordenada X" << endl;
     temp.setCordX(agregarRacional());
+    cout << "Ingrese la componente de la cordenada Y" << endl;
     temp.setCordY(agregarRacional());
+    cout << "Ingrese la componente de la cordenada Z" << endl;
     temp.setCordZ(agregarRacional());
     racionales.push_back(temp);
 }
@@ -87,6 +115,7 @@ void listarRacionales()
     {
         cout << "| " << i << " -> ";
         racionales[i].toStrings();
+        cout << "\n";
     }
 }
 
@@ -96,6 +125,45 @@ void listarComplejos()
     {
         cout << "| " << i << " -> ";
         complejos[i].toStrings();
+        cout << "\n";
+    }
+}
+
+void impresionRacional(int p, int s, bool t){
+    if (t)
+    {
+        racionales[p].toStrings();
+        cout << " + "; 
+        racionales[s].toStrings(); 
+        cout << " = "; 
+        racionales[racionales.size()-1].toStrings();
+        cout << "\n";
+    }else{
+        racionales[p].toStrings();
+        cout << " * "; 
+        racionales[s].toStrings(); 
+        cout << " = ";
+        racionales[racionales.size()-1].toStrings();
+        cout << "\n";
+    }
+}
+
+void impresionComplejo(int p, int s, bool t){
+    if (t)
+    {
+        complejos[p].toStrings();
+        cout << " + "; 
+        complejos[s].toStrings(); 
+        cout << " = "; 
+        complejos[racionales.size()-1].toStrings();
+        cout << "\n";
+    }else{
+        complejos[p].toStrings();
+        cout << " * "; 
+        complejos[s].toStrings(); 
+        cout << " = ";
+        complejos[racionales.size()-1].toStrings();
+        cout << "\n";
     }
 }
 
@@ -119,22 +187,69 @@ void selector()
         case 2:
             if (menuTipos() == 1)
             {
-                listarRacionales();
+                if(!racionales.empty()){
+                    listarRacionales();
+                }else{
+                    cout << "No hay sufiecientes vectores para mostrar" << endl;
+                }
             }
             else
             {
-                listarComplejos();
+                if(!complejos.empty()){
+                    listarComplejos();
+                }else{
+                    cout << "No hay sufiecientes vectores para mostrar" << endl;
+                }
             }
             break;
-        case 3:
+        case 3:{
+            int primer, segundo;
             if (menuTipos() == 1)
             {
-                
+                if(racionales.size() > 0){
+                    cout << "Seleccione los Racionales a operar:" << endl;
+                    listarRacionales();
+                    cout << "Escoja el primer racional" << endl;
+                    cin >> primer;
+                    cout << "Escoja el segundo racional" << endl;
+                    cin >> segundo;
+                    if (menuOperaciones() == 1){
+                        Vector<Racional> temp = racionales[primer] + racionales[segundo];
+                        racionales.push_back(temp);
+                        impresionRacional(primer, segundo, true);
+                    }else{
+                        Vector<Racional> temp = racionales[primer] * racionales[segundo];
+                        racionales.push_back(temp);
+                        impresionRacional(primer, segundo, false);
+                    }
+                }else{
+                    cout << "No hay sufiecientes vectores para operar" << endl;
+                }
             }
             else
             {
+                if(complejos.size() > 0){
+                    cout << "Seleccione los Complejos a operar:" << endl;
+                    listarComplejos();
+                    cout << "Escoja el primer Complejo" << endl;
+                    cin >> primer;
+                    cout << "Escoja el segundo Complejo" << endl;
+                    cin >> segundo;
+                    if (menuOperaciones() == 1){
+                        Vector<Complejo> temp = complejos[primer] + complejos[segundo];
+                        complejos.push_back(temp);
+                        impresionComplejo(primer, segundo, true);
+                    }else{
+                        Vector<Complejo> temp = complejos[primer] * complejos[segundo];
+                        complejos.push_back(temp);
+                        impresionComplejo(primer, segundo, false);
+                    }
+                }else{
+                    cout << "No hay sufiecientes vectores para operar" << endl;
+                }
             }
             break;
+            }
         case 4:
             flag = true;
             break;

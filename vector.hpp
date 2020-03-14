@@ -21,19 +21,19 @@ class Vector{
     T getCordY() const {return cordY;};
     T getCordZ() const {return cordZ;};
     void toStrings(){
-        std::cout << "[ " << cordX << " , " << cordY << " , " << cordZ << " ]\n" << std::endl;
+        std::cout << "[ " << cordX << " , " << cordY << " , " << cordZ << " ]";
     };
     Vector operator+(Vector v){
             T tempCordX = cordX + v.cordX;
-            T tempCordY = cordX + v.cordX;
-            T tempCordZ = cordX + v.cordX;
+            T tempCordY = cordY + v.cordY;
+            T tempCordZ = cordZ + v.cordZ;
             Vector V(tempCordX, tempCordY, tempCordZ);
             return V; 
     };
     Vector operator*(Vector v){
-            T tempCordX = cordX * v.cordX;
-            T tempCordY = cordX * v.cordX;
-            T tempCordZ = cordX * v.cordX;
+            T tempCordX = this->cordX * v.cordX;
+            T tempCordY = this->cordY * v.cordY;
+            T tempCordZ = this->cordZ * v.cordZ;
             Vector V(tempCordX, tempCordY, tempCordZ);
             return V; 
     };
