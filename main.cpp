@@ -169,23 +169,26 @@ void impresionComplejo(int p, int s, bool t){
 
 void selector()
 {
+    int menuT, menuO;
     bool flag = false;
     while (!flag)
     {
         switch (menu())
         {
         case 1:
-            if (menuTipos() == 1)
+            menuT = menuTipos(); 
+            if (menuT == 1)
             {
                 agregarVectorRacional();
             }
-            else if (menuTipos() == 2)
+            else if (menuT == 2)
             {
                 agregarVectorComplejo();
             }
             break;
         case 2:
-            if (menuTipos() == 1)
+            menuT = menuTipos();
+            if (menuT == 1)
             {
                 if(!racionales.empty()){
                     listarRacionales();
@@ -193,7 +196,7 @@ void selector()
                     cout << "No hay sufiecientes vectores para mostrar" << endl;
                 }
             }
-            else if (menuTipos() == 2)
+            else if (menuT == 2)
             {
                 if(!complejos.empty()){
                     listarComplejos();
@@ -204,7 +207,8 @@ void selector()
             break;
         case 3:{
             int primer, segundo;
-            if (menuTipos() == 1)
+            menuT = menuTipos();
+            if (menuT == 1)
             {
                 if(racionales.size() > 0){
                     cout << "Seleccione los Racionales a operar:" << endl;
@@ -213,11 +217,12 @@ void selector()
                     cin >> primer;
                     cout << "Escoja el segundo racional" << endl;
                     cin >> segundo;
-                    if (menuOperaciones() == 1){
+                    menuO = menuOperaciones();
+                    if (menuO == 1){
                         Vector<Racional> temp = racionales[primer] + racionales[segundo];
                         racionales.push_back(temp);
                         impresionRacional(primer, segundo, true);
-                    }else if (menuOperaciones() == 2){
+                    }else if (menuO == 2){
                         Vector<Racional> temp = racionales[primer] * racionales[segundo];
                         racionales.push_back(temp);
                         impresionRacional(primer, segundo, false);
@@ -226,7 +231,7 @@ void selector()
                     cout << "No hay sufiecientes vectores para operar" << endl;
                 }
             }
-            else if (menuTipos() == 2)
+            else if (menuT == 2)
             {
                 if(complejos.size() > 0){
                     cout << "Seleccione los Complejos a operar:" << endl;
@@ -235,11 +240,12 @@ void selector()
                     cin >> primer;
                     cout << "Escoja el segundo Complejo" << endl;
                     cin >> segundo;
-                    if (menuOperaciones() == 1){
+                    menuO = menuOperaciones();
+                    if (menuO == 1){
                         Vector<Complejo> temp = complejos[primer] + complejos[segundo];
                         complejos.push_back(temp);
                         impresionComplejo(primer, segundo, true);
-                    }else if (menuOperaciones() == 2){
+                    }else if (menuO == 2){
                         Vector<Complejo> temp = complejos[primer] * complejos[segundo];
                         complejos.push_back(temp);
                         impresionComplejo(primer, segundo, false);
